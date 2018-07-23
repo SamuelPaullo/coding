@@ -1,0 +1,445 @@
+/* ==========================================================================
+   RESET PARCIAL
+   ========================================================================== 
+*/
+a {
+	text-decoration: none;
+} 
+
+ol, ul {
+	list-style: none;
+}
+
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, footer, header, nav, section, main {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, ul {
+	font-size: 1em;
+	font-weight: normal;
+}
+
+
+/* ==========================================================================
+   GRID: 2 COLUNAS (70% - 50%)
+   ========================================================================== 
+*/
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+.container {
+	width: 1170px;
+	margin: 0 auto;
+	padding: 0px;
+	position: relative;
+}
+
+.container:after, .container:before {
+	content: " ";
+	display: table;
+}
+
+.container:after {
+	clear: both;
+}
+
+.grid-50, .grid-70 {
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-top: 20px;
+}
+
+.grid-50	{width: 467.5px;}
+.grid-70 	{width: 662.5px;}
+
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+	.container {
+		width: 970px;
+	}
+
+	.grid-50		{width: 384.17px;}
+	.grid-70		{width: 545.83px;}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+	.container {
+		width: 750px;
+	}
+
+	.grid-50		{width: 292.5px;}
+	.grid-70		{width: 417.5px;}
+}
+
+
+@media only screen and (max-width: 767px) {
+	.container {
+		width: 300px;
+	}
+
+	.grid-50, .grid-70 {
+		width: 300px;
+		margin: 0;
+		float: none;
+	}
+}
+
+
+/* ==========================================================================
+   COMPONENT STYLE
+   ========================================================================== 
+*/
+
+/* tipografia base */
+* {
+	color: rgba(0,0,0,0.87); /*preto*/
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 18px;
+}
+
+/* header */
+.header {
+	margin-bottom: 20px;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.0);
+}
+
+.header h1 {
+	padding: 12px 0;
+	color: rgba(0,0,0,0.54); /* cinza */	
+	font-size: 1.5em;
+}
+
+.header h1>span {
+	color: rgba(1, 163, 91, 0.77);
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+/* select */
+.select {
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	appearance: none; /* remove estilo default */
+	outline: none;
+	display: block;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 30px;
+	padding: 0 10px;
+	background: url('/img/arrow-down.png') no-repeat;  
+	background-position: right center;
+	border-radius: 5px;
+	border: 1px solid rgba(148,148,148,0.34);
+	cursor: pointer;
+}
+
+.select:hover {
+	border-color: rgba(20, 133, 204,0.77);
+}
+
+.select:focus {
+	outline: none;
+	border-color: rgba(20, 133, 204,0.77);
+}
+
+
+/* buttons */
+.btn {
+	height: 30px;
+	width: 95px;
+	padding: 0 20px;
+	margin-right: 5px;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.0);
+	color: #fff;
+	background: #949494;
+	cursor: pointer;
+}
+
+.btn-red {
+	background-color: rgba(255,82,82,0.87); 
+}
+
+.btn-green {
+	background-color: rgba(1, 163, 91, 0.77);
+}
+
+.btn-blue {
+	background-color: rgba(20, 133, 204, 0.77);
+}
+
+.btn-add {
+	outline: none;
+	border: none;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.0);
+	background: url('/img/add.png') no-repeat;
+	background-color: rgba(1, 163, 91, 0.77);
+	background-position: center;
+}
+
+/* label */
+.label {
+	display: block;
+	margin: 0 0 5px 3px;
+	font-weight: bold;
+	font-size: 1.05em;
+}
+
+/* textarea */
+.textarea:focus {
+	outline: none;
+	border-radius: 5px;
+	border-color: rgba(20, 133, 204,0.77);
+}
+
+.custom_textarea, .textarea {
+	width: 100%;
+	height: 200px;
+	margin-bottom: 10px;
+	padding: 10px;
+	overflow-y: scroll;
+	border: 1px solid rgba(148,148,148,0.34);
+	border-radius: 5px;
+}
+
+/* input-text */
+.input-text {
+	outline: none;
+	display: block;
+	margin-bottom: 20px;
+	width: 100%;
+	height: 30px;
+	padding: 0 10px;
+	border-radius: 5px;
+	border: 1px solid rgba(148,148,148,0.34);
+}
+
+.input-text[type=text]:focus {
+	box-shadow: 0 0 0 1px rgba(20, 133, 204,0.77);
+	border: none;
+}
+
+/* dialogs */
+.dialog {
+	border-radius: 5px;
+	border: 1px solid rgba(148,148,148,0.34);
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.0);
+}
+
+.dialog::backdrop {
+	background: rgba(0,0,0,0.54);
+}
+
+.header-dialog {
+	border-bottom: 1px solid rgba(0,0,0,0.34);
+	padding-bottom: 5px;
+	margin-bottom: 30px;
+	font-weight: bold;
+	color: rgba(0,0,0,0.54); /* cinza */
+}
+
+.dialog-msg {
+	text-align: center;
+}
+
+.dialog-msg>p {
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.dialog-msg>button {
+	width: 65px;
+}
+
+.dialog-msg .msg-success {
+	padding: 5px 30px;
+	background: url('/img/success.png') no-repeat;
+	background-position: left center;
+}
+
+.dialog-msg .msg-error {
+	padding: 5px 30px;
+	background: url('/img/error.png') no-repeat;
+	background-position: left center;
+}
+
+/* tooltip */
+.tooltip {
+	position: relative;
+    display: inline-block;
+	border-bottom: 1px dotted rgba(20, 133, 204, 0.77);
+    color: rgba(20, 133, 204, 0.77);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ .tooltip-text {
+	visibility: hidden;
+	font-weight: normal;
+	max-width: 240px;
+	min-width: 170px;
+	padding:  10px;
+	background: rgba(0,0,0,0.94);
+	border-radius: 5px;
+	color: #fff;
+	/* posiciona o tooltip */
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    top: 150%;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+.tooltip .tooltip-text::after {
+    content: " ";
+    position: absolute;
+    /* seta do tooltip*/
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent rgba(0,0,0,0.94) transparent;
+    /* posição da seta */
+    bottom: 100%;
+    left: 10px;
+}
+
+/* outros ajustes */
+.left-column {
+	padding-right: 80px;
+	padding-left: 10px;
+}
+
+.left-column .arquivos {
+	margin-top: 40px;
+}
+
+.left-column .arquivo-texto>button {
+	float: left;
+	margin-right: 8px;
+}
+
+.left-column .arquivos>button, .right-column .codigos>button {
+	width: 129px;
+	float: right;
+}
+
+.right-column {
+	padding-right: 10px;
+}
+
+.right-column>label {
+	display: inline-block;
+	vertical-align: top;
+	margin: 7px 3px;
+	font-weight: bold;
+	font-size: 1.1em;
+	color: rgba(1, 163, 91, 0.77);
+}
+
+.right-column .codigos {
+	margin-top: 75px;
+}
+
+.right-column .codigos .codigos-btn>button{
+	float: left;
+}
+
+.btn:hover {
+	background-color: #828282;
+}
+
+.btn-red:hover {
+	background-color: #ff5252;
+}
+
+.btn-green:hover {
+	background-color: #01b263;
+}
+
+.btn-blue:hover {
+	background-color: #1485cc;
+}
+
+/* ==========================================================================
+   RESPONSIVO: AJUSTES
+   ========================================================================== 
+*/
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.left-column {
+		padding-right: 60px;
+	}
+
+	.left-column .arquivos>button, .right-column .codigos>button {
+		width: 130px;
+	}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.left-column {
+		padding-right: 40px;
+	}
+
+	.left-column .arquivos>button, .right-column .codigos>button {
+		width: 130px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.left-column {
+		padding-right: 10px;
+	}
+
+	.left-column .projetos {
+		margin-top: 50px;
+	}
+
+
+	.left-column .arquivos>button, .right-column .codigos>button {
+		float: none;
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.btn-add {
+		position: relative;
+		top: -530px;
+		margin-left: 10px;
+	}
+
+	.right-column>label {
+		position: relative;
+		top: -530px;
+	}
+
+	.right-column {
+		padding-left: 10px;
+	}
+
+	.right-column .codigos {
+		margin-top: -10px;
+	}
+
+	.btn {
+		width: 132px;
+	}
+}

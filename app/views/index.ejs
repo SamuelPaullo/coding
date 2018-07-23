@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code</title>
+
+	<link rel="stylesheet" href="css/grid.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script type="text/javascript" src="js/jquery-2.2.1.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>	
+    <script type="text/javascript" src="js/script.js"></script>	
+</head>
+<body>
+	<header class="header">
+		<h1 class="container"><span>C</span>oding</h1>
+	</header>
+
+	<div class="container">	
+		<div class="grid-70 left-column">		
+			<div class="projetos">
+				<select id="select-projeto" class="select">
+					<option value="" selected hidden>Projeto</option>
+					<% for(var i = 0; i < projetos.length; i++) { %>
+						<option value="<%=projetos[i]._id%>">
+							<%= projetos[i].nome %>
+						</option>
+					<%}%>
+				</select>
+
+				<button id="btn-editar-projeto" class="btn">Editar</button>
+				<button id="btn-exc-projeto" class="btn btn-red">Excluir</button>
+			</div>
+		
+			<div class="arquivos">
+				<label class="label">Arquivos</label>
+				<select id="select-arquivo" class="select">
+					<option value="" selected hidden>Selecione</option>
+				</select>
+				<!-- hidden -->
+				<div class="arquivo-texto">
+					<div id="txt-area-texto-arquivo" class="custom_textarea">
+						
+					</div>
+					<button id="btn-editar-arquivo" class="btn">Editar</button>
+					<button id="btn-exc-arquivo" class="btn btn-red">Excluir</button>
+				</div>
+				<button id="btn-novo-arquivo" class="btn btn-blue">Novo Arquivo</button>
+			</div>
+		</div>
+
+		<div class="grid-50 right-column">
+			<button id="btn-novo-projeto" class="btn-add btn-green"></button>
+			<label>Novo Projeto</label>
+
+			<div class="codigos">
+				<label class="label">Códigos</label>
+				<select id="select-codigo" class="select">
+					<option value="" selected hidden>Selecione</option>
+				</select>
+				<div class="codigos-btn">
+					<button id="btn-editar-codigo" class="btn">Editar</button>
+					<button id="btn-exc-codigo" class="btn btn-red">Excluir</button>
+				</div>
+				<button id="btn-novo-codigo" class="btn btn-blue" hidden >Novo Código</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Definição dos dialogs -->
+
+	<dialog id="dlg-cad-projeto" class="dialog">
+
+		<span id="id-projeto" hidden ></span>
+
+		<header id="header-dlg-projeto" class="header-dialog">
+			Editar Projeto
+		</header>
+
+		<label class="label">Nome do Projeto</label>
+		<input id="txt-nome-projeto" type="text" name="" class="input-text">
+
+		<label class="label">Informações Adicionais</label>
+		<textarea id="txt-info-adic-projeto" class="textarea"></textarea>
+
+		<button id="btn-salvar-projeto" class="btn btn-green">Salvar</button>
+		<button id="btn-cancel-projeto" class="btn btn-red">Cancelar</button>
+	</dialog>
+
+	<dialog id="dlg-cad-arquivo" class="dialog">
+
+		<span id="id-arquivo" hidden ></span>
+
+		<header id="header-dlg-arquivo" class="header-dialog">
+			Editar Arquivo
+		</header>
+
+		<label class="label">Titulo do arquivo</label>
+		<input id="txt-titulo-arquivo" type="text" name="" class="input-text">
+
+		<label class="label">Texto do Arquivo</label>
+		<textarea id="txt-texto-arquivo" class="textarea"></textarea>
+
+		<button id="btn-salvar-arquivo" class="btn btn-green">Salvar</button>
+		<button id="btn-cancel-arquivo" class="btn btn-red">Cancelar</button>
+	</dialog>
+
+	<dialog id="dlg-cad-codigo" class="dialog">
+
+		<span id="id-codigo" hidden ></span>
+
+		<header id="header-dlg-codigo" class="header-dialog">
+			Editar Codigo
+		</header>
+
+		<label class="label">Palavra/Trecho</label>
+		<input id="txt-trecho" type="text" name="" class="input-text">
+
+		<label class="label">Códigos</label>
+		<textarea id="txt-codigos" class="textarea"></textarea>
+
+		<button id="btn-salvar-codigo" class="btn btn-green">Salvar</button>
+		<button id="btn-cancel-codigo" class="btn btn-red">Cancelar</button>
+	</dialog>
+
+	<dialog id="dlg-msg" class="dialog dialog-msg">
+		<p id="msg" class="msg-success" >Código salvo com sucesso!</p>
+		<button id="btn-ok-msg" class="btn btn-green">OK</button>
+	</dialog>
+
+	<dialog id="dlg-msg-erro" class="dialog dialog-msg">
+		<p id="msg-erro" class="msg-error">Erro ao salvar código!</p>
+		<button id="btn-ok-msg-erro" class="btn btn-red">OK</button>
+	</dialog>
+</body>
+</html>
