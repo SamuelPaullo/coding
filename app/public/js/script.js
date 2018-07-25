@@ -565,8 +565,7 @@ $(document).ready(function () {
 				var arq = JSON.parse(resposta);
 
 				var texto = arq.texto
-					.replaceAll('\n', '<br>') // quebra linha
-					.replaceAll(' ', '&nbsp;'); // espaco
+					.replaceAll('\n', '<br>'); // espaco
 
 				$('#txt-area-texto-arquivo').empty();
 				$('#txt-area-texto-arquivo').append(texto);
@@ -595,9 +594,7 @@ $(document).ready(function () {
 				var arq = JSON.parse(resposta);
 
 				var texto = arq.texto
-					.replaceAll('\n', '<br>') 
-				//	.replaceAll(' ', '&nbsp;')
-					; 
+					 .replaceAll('\n', '<br>');
 					
 			    var xhr1 = new XMLHttpRequest();
 
@@ -607,17 +604,15 @@ $(document).ready(function () {
 						var resposta = xhr1.responseText;
 						var cod = JSON.parse(resposta);
 
-						var trecho = cod.trecho.normalize();
-
 						var novoTexto = texto
-							.replaceAll(
-								trecho,
+							.replaceWords(
+								cod.trecho,
 								'<div class="tooltip">' +
 									cod.trecho +
 									'<span class="tooltip-text">' +
 										cod.descricao +
 									'</span>' +
-								'</div>'.normalize()
+								'</div>'
 							);
 
 						var html = $.parseHTML(novoTexto);
