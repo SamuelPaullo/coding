@@ -1,11 +1,11 @@
 module.exports = function() {
 
-	var codigo = new Schema({
+	var trecho = new Schema({
 		_id: Schema.Types.ObjectId,
 		descricao: {type: String, required: true},
-		trechos: [{ type: Schema.Types.ObjectId, ref: 'Trecho' }],
+		codigos: [{ type: Schema.Types.ObjectId, ref: 'Codigo' }],
 		projeto: { type: Schema.Types.ObjectId, ref: 'Projeto' } 
 	});
 
-	return db.model('Codigo', codigo);
+	return db.model('Trecho', trecho);
 }
