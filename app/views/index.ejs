@@ -62,7 +62,8 @@
 					<button id="btn-editar-codigo" class="btn">Editar</button>
 					<button id="btn-exc-codigo" class="btn btn-red">Excluir</button>
 				</div>
-				<button id="btn-novo-codigo" class="btn btn-blue" hidden >Novo Código</button>
+				<button id="btn-novo-codigo" class="btn btn-blue">Novo Código</button>
+				<button id="btn-relacionar-codigo" class="btn btn-green" hidden>Ligar Código</button>
 			</div>
 		</div>
 	</div>
@@ -113,11 +114,12 @@
 			Editar Codigo
 		</header>
 
-		<label class="label">Palavra/Trecho</label>
-		<input id="txt-trecho" type="text" name="" class="input-text">
+		<label class="label">Código</label>
+		<input id="txt-codigo" type="text" name="" class="input-text">
 
-		<label class="label">Códigos</label>
-		<textarea id="txt-codigos" class="textarea"></textarea>
+		<label class="label">Palavras/Expressões</label>
+		<ul id="lista-palavras" class="lista-palavras">
+		</ul>
 
 		<button id="btn-salvar-codigo" class="btn btn-green">Salvar</button>
 		<button id="btn-cancel-codigo" class="btn btn-red">Cancelar</button>

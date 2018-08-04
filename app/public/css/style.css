@@ -168,16 +168,32 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
 	cursor: pointer;
 }
 
+.btn:hover {
+	background-color: #828282;
+}
+
 .btn-red {
 	background-color: rgba(255,82,82,0.87); 
+}
+
+.btn-red:hover {
+	background-color: #ff5252;
 }
 
 .btn-green {
 	background-color: rgba(1, 163, 91, 0.77);
 }
 
+.btn-green:hover {
+	background-color: #01b263;
+}
+
 .btn-blue {
 	background-color: rgba(20, 133, 204, 0.77);
+}
+
+.btn-blue:hover {
+	background-color: #1485cc;
 }
 
 .btn-add {
@@ -210,7 +226,7 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
 
 .custom_textarea, .textarea {
 	width: 100%;
-	height: 200px;
+	height: 300px;
 	margin-bottom: 10px;
 	padding: 10px;
 	overflow-y: scroll;
@@ -278,6 +294,25 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
 	padding: 5px 30px;
 	background: url('/img/error.png') no-repeat;
 	background-position: left center;
+}
+
+/* listas */
+.lista-palavras {
+	margin-bottom: 20px;
+	margin-top: 10px;
+	min-width: 250px;
+	max-width: 400px;
+	height: 200px;
+	overflow-y: scroll;
+}
+
+.lista-palavras li {
+	padding: 5px 10px;
+	border-bottom: 1px solid rgba(148,148,148,0.34);
+}
+
+.lista-palavras li:first-child {
+	border-top:  1px solid rgba(148,148,148,0.34);
 }
 
 /* tooltip */
@@ -363,21 +398,10 @@ h1, h2, h3, h4, h5, h6, p, a, ul {
 	float: left;
 }
 
-.btn:hover {
-	background-color: #828282;
+.right-column .codigos>button:last-of-type {
+	margin-top: 10px;
 }
 
-.btn-red:hover {
-	background-color: #ff5252;
-}
-
-.btn-green:hover {
-	background-color: #01b263;
-}
-
-.btn-blue:hover {
-	background-color: #1485cc;
-}
 
 /* ==========================================================================
    RESPONSIVO: AJUSTES

@@ -6,7 +6,6 @@ module.exports.cadastrar = function (application, req, res) {
 
 	var codigo = new application.app.models.Codigo({
 		_id: new mongoose.Types.ObjectId(),
-		trecho: req.body.trecho,
 		descricao: req.body.descricao,
 		projeto: projeto._id
 	});
@@ -41,7 +40,6 @@ module.exports.alterar = function (application, req, res) {
 
 	var codigo = new Codigo({
 		_id: req.body._id,
-		trecho: req.body.trecho,
 		descricao: req.body.descricao,
 	});
 
@@ -81,6 +79,10 @@ module.exports.codigobyid = function (application, req, res) {
 
 	application.app.models.Codigo.
 		findOne({ _id: req.params.id }).
+		populate({
+			path: 'trechos',
+			populate: { path: 'codigos' }
+		}).
 		exec(function (err, codigo) {
 			if(err){
 				res.status(500).json({error: err});
@@ -95,8 +97,8 @@ module.exports.codigos = function (application, req, res) {
 
 	application.app.models.Codigo.
 		find({projeto: req.params.id}).
-		select('_id trecho').
-		sort('trecho').
+		select('_id descricao').
+		sort('descricao').
 		exec(function (err, codigos) {
 			if(err){
 				res.status(500).json({error: err});

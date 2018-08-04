@@ -1,6 +1,6 @@
 String.prototype.replaceWords = function (word, newWord) {
 
-	word = word.replace(/\s/g, ' ');
+	word = word.replace(/\s/g, ' ').trim();
 
 	var string = this;
 

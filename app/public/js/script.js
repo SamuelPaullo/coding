@@ -328,33 +328,145 @@ $(document).ready(function () {
 		dlg.close();
 	});
 
+
+	$('#btn-novo-codigo').click(function() {
+
+		var id = $("#select-projeto option:selected").val();
+
+		if(!id){
+			var dlg = document.getElementById('dlg-msg-erro');
+			$('#msg-erro').text('Nenhum projeto selecionado para criação de código');
+			dlg.showModal();
+			return;
+		}
+
+		var dlg = document.getElementById('dlg-cad-codigo');
+
+		$('#header-dlg-codigo').text('Cadastrar Código');
+		$('#id-codigo').val('');
+		$('#txt-codigo').val('');
+		$('#lista-palavras').empty();
+
+	    dlg.showModal();
+	});
+
 	/* tornar o botao de novo codigo visivel ou invisivel */
 	$("#txt-area-texto-arquivo").mouseup(function(){
-    	var selectedText = window.getSelection().toString();
+    	var selectedText = window.getSelection().toString().trim();
     	if(selectedText){
     		
-    		$('#btn-novo-codigo').show();
+    		var idProj = $("#select-projeto option:selected").val();
+
+			var xhr = new XMLHttpRequest();
+
+			xhr.onreadystatechange = function(){ 
+				if(xhr.readyState == 4){
+
+					 var resposta = xhr.responseText;
+					 var trecho = JSON.parse(resposta);
+
+					 if(trecho){
+					 	
+					 	var idArq = $("#select-arquivo option:selected").val();
+
+					 	var xhr1 = new XMLHttpRequest();
+
+					 	xhr1.onreadystatechange = function(){ 
+							if(xhr1.readyState == 4){
+
+								var resposta = xhr1.responseText;
+								var arq = JSON.parse(resposta);
+
+								var texto = arq.texto
+					 				.replaceAll('\n', '<br>');
+
+					 			texto = texto
+									.replaceWords(
+										trecho.descricao,
+										`
+										<div class="tooltip">
+											${trecho.descricao}
+											<span class="tooltip-text">
+												${trecho.codigos.map(function(c){
+													return c.descricao + '<br>';
+												}).join('')}
+											</span>
+										</div>
+										`
+									);
+
+								var html = $.parseHTML(texto);
+
+								$('#txt-area-texto-arquivo').empty();
+								$('#txt-area-texto-arquivo').append(html);
+							}
+						}
+
+						xhr1.open("GET", "/arquivo/" + idArq);
+						xhr1.send();
+					 }
+				}
+			}
+
+			xhr.open("GET", "/trecho/"+ selectedText + "/" + idProj);
+			xhr.send();
+
+    		$('#btn-relacionar-codigo').show();
 
     		var idInterval = setInterval(function () {
 
     			var selectedText = window.getSelection().toString();
     			if(!selectedText){
-    				$('#btn-novo-codigo').hide();
+    				$('#btn-relacionar-codigo').hide();
 	    			clearInterval(idInterval);
     			}
     		});
     	}
 	});
 
-	$('#btn-novo-codigo').click(function() {
-		var dlg = document.getElementById('dlg-cad-codigo');
+	$('#btn-relacionar-codigo').click(function () {
 
-		$('#header-dlg-codigo').text('Cadastrar Código');
-		$('#id-codigo').val('');
-		$('#txt-trecho').val(window.getSelection().toString().trim());
-		$('#txt-codigos').val('');
+		var idCod = $("#select-codigo option:selected").val();
+		if(!idCod){
+			return;
+		}
 
-	    dlg.showModal();
+		var xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function(){ // begin outer
+			if(xhr.readyState == 4){ // begin if outer
+
+				var resposta = xhr.responseText;
+				var codigo = JSON.parse(resposta);
+
+				var selectedText = window.getSelection().toString().trim();
+
+				var data = {
+					codigo: codigo,
+					descricao: selectedText
+				}
+
+				var xhr1 = new XMLHttpRequest();
+				xhr1.onreadystatechange = function(){ // begin inner
+					if(xhr1.readyState == 4){ // begin if inner
+
+						var dlg = document.getElementById('dlg-msg');
+						$('#msg').text('Código relacionado com sucesso!');
+			    		dlg.showModal();
+
+					} // end if inner
+				} // end inner
+
+				xhr1.open("POST", "/cadastrar-trecho");
+
+				xhr1.setRequestHeader("Content-Type", "application/json");
+				xhr1.send(JSON.stringify(data));
+
+			} // end if outer
+		} // end outer
+
+		xhr.open("GET", "/codigo/" + idCod);
+		xhr.send();
 	});
 
 	$('#btn-cancel-codigo').click(function () {
@@ -379,19 +491,17 @@ $(document).ready(function () {
 				var proj = JSON.parse(resposta);
 
 				var idCod = $('#id-codigo').val();
-				var trecho = $('#txt-trecho').val().normalize().trim();
-				var descricao = $('#txt-codigos').val();
+				var descricaoCod = $('#txt-codigo').val().normalize().trim();
 			
-				if(!trecho || !descricao){
+				if(!descricaoCod){
 					var dlg = document.getElementById('dlg-msg-erro');
-					$('#msg-erro').text('Preencha todos os campos antes de confirmar');
+					$('#msg-erro').text('Defina a descrição do codigo antes de confirmar');
 					dlg.showModal();
 					return;
 				}
 
 				var data = {
-					trecho: trecho,
-					descricao: descricao,
+					descricao: descricaoCod,
 					projeto: proj
 				};
 
@@ -466,8 +576,13 @@ $(document).ready(function () {
 
 				$('#header-dlg-codigo').text('Editar Código');
 				$('#id-codigo').val(cod._id);
-				$('#txt-trecho').val(cod.trecho);
-	    		$('#txt-codigos').val(cod.descricao);
+				$('#txt-codigo').val(cod.descricao);
+	    		$('#lista-palavras').empty();
+
+	    		cod.trechos.forEach(function(trecho) {
+	    			$('#lista-palavras')
+	    				.append(`<li>${trecho.descricao}</li>`);
+	    		});
 
 			    dlg.showModal();
 	    	}
@@ -542,7 +657,7 @@ $(document).ready(function () {
 				$.each(proj.codigos, function (i, cod) {
 				    $('#select-codigo').append($('<option>', { 
 				        value: cod._id,
-				        text : cod.trecho 
+				        text : cod.descricao 
 				    }));
 				});
 			}
@@ -604,18 +719,25 @@ $(document).ready(function () {
 						var resposta = xhr1.responseText;
 						var cod = JSON.parse(resposta);
 
-						var novoTexto = texto
-							.replaceWords(
-								cod.trecho,
-								'<div class="tooltip">' +
-									cod.trecho +
-									'<span class="tooltip-text">' +
-										cod.descricao +
-									'</span>' +
-								'</div>'
-							);
+						cod.trechos.forEach(function(trecho) {
 
-						var html = $.parseHTML(novoTexto);
+							texto = texto
+								.replaceWords(
+									trecho.descricao,
+									`
+									<div class="tooltip">
+										${trecho.descricao}
+										<span class="tooltip-text">
+											${trecho.codigos.map(function(c){
+												return c.descricao + '<br>';
+											}).join('')}
+										</span>
+									</div>
+									`
+								);
+						});
+
+						var html = $.parseHTML(texto);
 
 						$('#txt-area-texto-arquivo').empty();
 						$('#txt-area-texto-arquivo').append(html);
@@ -713,7 +835,7 @@ function loadCodigos() {
 			$.each(codigos, function (i, cod) {
 			    $('#select-codigo').append($('<option>', { 
 			        value: cod._id,
-			        text : cod.trecho 
+			        text : cod.descricao 
 			    }));
 			});
 		}
