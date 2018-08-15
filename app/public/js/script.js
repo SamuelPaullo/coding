@@ -352,7 +352,10 @@ $(document).ready(function () {
 
 	/* tornar o botao de novo codigo visivel ou invisivel */
 	$("#txt-area-texto-arquivo").mouseup(function(){
-    	var selectedText = window.getSelection().toString().trim();
+		
+		selection = window.getSelection();
+    	var selectedText = selection.toString().trim();
+
     	if(selectedText){
     		
     		var idProj = $("#select-projeto option:selected").val();
@@ -378,13 +381,14 @@ $(document).ready(function () {
 								var arq = JSON.parse(resposta);
 
 								var texto = arq.texto
-					 				.replaceAll('\n', '<br>');
+					 				//.replaceAll('\n', '<br>')
+					 				;
 
 					 			texto = texto
 									.replaceWords(
 										trecho.descricao,
 										`
-										<div class="tooltip">
+										<div id="${trecho._id}" class="tooltip">
 											${trecho.descricao}
 											<span class="tooltip-text">
 												${trecho.codigos.map(function(c){
@@ -395,10 +399,21 @@ $(document).ready(function () {
 										`
 									);
 
-								var html = $.parseHTML(texto);
-
 								$('#txt-area-texto-arquivo').empty();
-								$('#txt-area-texto-arquivo').append(html);
+								$('#txt-area-texto-arquivo').append(texto);
+
+
+								var node = document.getElementById(`${trecho._id}`).firstChild;
+							    let range = document.createRange();
+							   
+							    var length = String(node).length;
+							    range.setStart(node, 0);
+							    range.setEnd(node, length + 12); 
+
+							    var selection = window.getSelection();
+							    selection.removeAllRanges();
+							    selection.addRange(range);
+
 							}
 						}
 
@@ -413,6 +428,7 @@ $(document).ready(function () {
 
     		$('#btn-relacionar-codigo').show();
 
+    		
     		var idInterval = setInterval(function () {
 
     			var selectedText = window.getSelection().toString();
